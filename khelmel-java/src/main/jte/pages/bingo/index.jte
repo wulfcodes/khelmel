@@ -139,5 +139,5 @@
   </div>
 </div>
 
-<script src="/js/bingo.js"></script>
+<script src="/js/bingo.js?v=2"></script>
 `)
