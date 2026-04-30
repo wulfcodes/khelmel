@@ -79,7 +79,8 @@ class BingoWsController {
 
             switch (type) {
                 case "PING":
-                    break; // heartbeat — keep alive, no logging needed
+                    ws.send(JSON.stringify(this.msg('PONG', null)));
+                    break;
                 case "READY":
                     this.handleReady(room, username);
                     break;

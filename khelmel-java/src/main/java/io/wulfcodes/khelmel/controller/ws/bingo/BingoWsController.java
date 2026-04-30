@@ -97,7 +97,7 @@ public class BingoWsController {
             log.debug("Message received — room='{}' username='{}' type='{}'", roomId, username, type);
 
             switch (type) {
-                case "PING"  -> {} // heartbeat — keep alive, no logging needed
+                case "PING"  -> ctx.send(msg("PONG", null));
                 case "READY" -> handleReady(room, username);
                 case "MOVE"  -> handleMove(room, username, msg);
                 default      -> log.warn("Unknown message type '{}' from '{}' in room '{}'", type, username, roomId);
