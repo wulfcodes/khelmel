@@ -86,7 +86,7 @@ function enterRoom() {
       if (S.ws && S.ws.readyState === WebSocket.OPEN) {
         S.ws.send(JSON.stringify({ type: 'PING' }));
       }
-    }, 20000);
+    }, 5000);
   };
   S.ws.onmessage = function(e) { handleMessage(JSON.parse(e.data)); };
   S.ws.onclose = function() {
