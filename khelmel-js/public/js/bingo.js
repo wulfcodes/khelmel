@@ -78,7 +78,8 @@ inpRoom.addEventListener('input', checkEnterVisibility);
 function enterRoom() {
   S.me = inpUser.value.trim();
   const roomId = inpRoom.value.trim();
-  S.ws = new WebSocket('ws://' + location.host + '/ws/bingo/' + encodeURIComponent(roomId) + '/' + encodeURIComponent(S.me));
+  const wsProtocol = location.protocol === 'https:' ? 'wss://' : 'ws://';
+  S.ws = new WebSocket(wsProtocol + location.host + '/ws/bingo/' + encodeURIComponent(roomId) + '/' + encodeURIComponent(S.me));
   S.ws.onopen = function() {
     console.log('WS connected');
     S.heartbeat = setInterval(function() {
