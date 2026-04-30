@@ -1,4 +1,3 @@
-# --- Build Systems ---
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -8,44 +7,24 @@ release.properties
 dependency-reduced-pom.xml
 build.log
 .incremental/
-
-# --- IDEs ---
-# VS Code
 .vscode/
 *.code-workspace
-
-# IntelliJ IDEA
 .idea/
 *.iws
 *.iml
 *.ipr
 out/
-
-# Eclipse
 .metadata
 .classpath
 .project
 .settings/
 *.launch
 bin/
-
-# --- JTE (Just-in-Time Engine) ---
-# JTE precompilation artifacts (if any are generated in source)
 jte-classes/
-
-# --- OS Specific ---
 .DS_Store
 Thumbs.db
 desktop.ini
-
-# --- Logs ---
 *.log
 logs/
-
-# --- Environment ---
 .env
 .env.local
-
-# --- Node ---
-node_modules/
-npm-debug.log

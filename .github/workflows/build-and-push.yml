@@ -4,9 +4,25 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      build:
+        description: 'Run build and push?'
+        required: true
+        type: boolean
+        default: false
+      runtime:
+        description: 'Which runtime to build?'
+        required: true
+        type: choice
+        options:
+          - java
+          - javascript
+        default: 'java'
 
 jobs:
   build-and-push:
+    if: github.event_name == 'push' || github.event.inputs.build == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -29,9 +45,26 @@ jobs:
         with:
           string: ${{ github.repository }}
 
+      - name: Set Image Tag suffix and context
+        id: image_config
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            if [ "${{ github.event.inputs.runtime }}" == "java" ]; then
+              echo "context=khelmel-java" >> $GITHUB_OUTPUT
+              echo "suffix=-java" >> $GITHUB_OUTPUT
+            else
+              echo "context=khelmel-js" >> $GITHUB_OUTPUT
+              echo "suffix=-js" >> $GITHUB_OUTPUT
+            fi
+          else
+            # Default for push event
+            echo "context=khelmel-java" >> $GITHUB_OUTPUT
+            echo "suffix=-java" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ${{ steps.image_config.outputs.context }}
           push: true
-          tags: ghcr.io/${{ steps.string.outputs.lowercase }}:latest
+          tags: ghcr.io/${{ steps.string.outputs.lowercase }}${{ steps.image_config.outputs.suffix }}:latest
