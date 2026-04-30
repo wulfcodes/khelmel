@@ -1,20 +1,15 @@
-# Build Stage
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS builder
-
+FROM maven:3.9.15-eclipse-temurin-25 AS build
 WORKDIR /app
+
 COPY pom.xml .
+RUN mvn dependency:go-offline
+
 COPY src ./src
+RUN mvn clean compile package -DskipTests
 
-# Build the application
-RUN mvn clean package -DskipTests
-
-# Run Stage
-FROM eclipse-temurin:21-jre-alpine
-
+FROM eclipse-temurin:25-jre-alpine-3.22
 WORKDIR /app
-COPY --from=builder /app/target/khelmel-1.0-SNAPSHOT-jar-with-dependencies.jar ./app.jar
 
-ENV PORT=8080
-EXPOSE 8080
+COPY --from=build /app/target/khelmel.jar app.jar
 
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xmx256m", "-jar", "app.jar"]
