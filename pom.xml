@@ -7,8 +7,26 @@
   <artifactId>khelomilo</artifactId>
   <version>1.0.0</version>
 
-  <name>my-app</name>
-  <url>http://app.wulfcodes.io</url>
+  <name>KheloMilo - Thoda Khelo, Zyada Milo</name>
+  <url>https://khelomilo.onrender.com</url>
+
+  <contributors>
+    <contributor>
+      <name>Swayamsidh Nayak</name>
+      <email>swayamsidh50@gmail.com</email>
+      <roles>
+        <role>Architect</role>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Srujanee Nayak</name>
+      <email>snayak52006@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+  </contributors>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
