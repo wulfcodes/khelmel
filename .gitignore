@@ -46,6 +46,3 @@ logs/
 .env
 .env.local
 
-# --- Node ---
-node_modules/
-npm-debug.log

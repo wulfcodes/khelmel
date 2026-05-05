@@ -8,14 +8,6 @@ on:
         required: true
         type: boolean
         default: false
-      runtime:
-        description: 'Which runtime to build?'
-        required: true
-        type: choice
-        options:
-          - java
-          - javascript
-        default: 'java'
 
 jobs:
   build-and-push:
@@ -42,26 +34,15 @@ jobs:
         with:
           string: ${{ github.repository }}
 
-      - name: Set Image Tag suffix and context
-        id: image_config
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            if [ "${{ github.event.inputs.runtime }}" == "java" ]; then
-              echo "context=khelmel-java" >> $GITHUB_OUTPUT
-              echo "suffix=-java" >> $GITHUB_OUTPUT
-            else
-              echo "context=khelmel-js" >> $GITHUB_OUTPUT
-              echo "suffix=-js" >> $GITHUB_OUTPUT
-            fi
-          else
-            # Default for push event
-            echo "context=khelmel-java" >> $GITHUB_OUTPUT
-            echo "suffix=-java" >> $GITHUB_OUTPUT
-          fi
+      - name: Extract Maven project version
+        id: project_version
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ${{ steps.image_config.outputs.context }}
+          context: .
           push: true
-          tags: ghcr.io/${{ steps.string.outputs.lowercase }}${{ steps.image_config.outputs.suffix }}:latest
+          tags: |
+            ghcr.io/${{ steps.string.outputs.lowercase }}:${{ steps.project_version.outputs.VERSION }}
+            ghcr.io/${{ steps.string.outputs.lowercase }}:latest
