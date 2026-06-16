@@ -162,6 +162,13 @@
             <div class="game-desc">Classic bingo with a twist — play with friends in real-time. Mark numbers, shout Bingo, and win!</div>
             <span class="game-cta">Play now</span>
         </a>
+        <a href="/wordle" class="game-card">
+            <span class="game-badge">Live</span>
+            <div class="game-icon">🟩</div>
+            <div class="game-name">Wordle</div>
+            <div class="game-desc">Competitive 1v1 Wordle! Guess the 5-letter word before your opponent does. Only 6 tries!</div>
+            <span class="game-cta">Play now</span>
+        </a>
     </div>
 </section>
 

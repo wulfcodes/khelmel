@@ -10,7 +10,10 @@ import io.wulfcodes.khelomilo.router.web.HomeRouter;
 import io.wulfcodes.khelomilo.router.web.bingo.BingoWebRouter;
 import io.wulfcodes.khelomilo.router.ws.WsRouter;
 import io.wulfcodes.khelomilo.router.ws.bingo.BingoWsRouter;
-
+import io.wulfcodes.khelomilo.router.web.wordle.WordleWebRouter;
+import io.wulfcodes.khelomilo.router.ws.wordle.WordleWsRouter;
+import io.wulfcodes.khelomilo.service.wordle.WordDictionaryService;
+import io.wulfcodes.khelomilo.service.wordle.WordleRoomManager;
 public class AppModule extends AbstractModule {
     @Override
     protected void configure() {
@@ -21,6 +24,10 @@ public class AppModule extends AbstractModule {
         bind(BingoApiRouter.class);
         bind(WsRouter.class);
         bind(BingoWsRouter.class);
+        bind(WordleWebRouter.class);
+        bind(WordleWsRouter.class);
         bind(BingoRoomManager.class).in(Singleton.class);
+        bind(WordleRoomManager.class).in(Singleton.class);
+        bind(WordDictionaryService.class).in(Singleton.class);
     }
 }
